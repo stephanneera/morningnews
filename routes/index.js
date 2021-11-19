@@ -76,6 +76,7 @@ router.delete('/delete-article/:title', async function(req,res,next){
 
 router.get('/display-wishlist', async function(req,res,next){
   var wishlist = await favArticleModel.find();
+  console.log("wishlist display", wishlist);
   res.json({result:wishlist ? true : false, wishlist });
 });
 
