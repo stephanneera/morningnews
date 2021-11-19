@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var favArticleModel = mongoose.Schema({
       image: String,
-      titre: String,
+      title: String,
       contenu: String,
       token : String,
     });

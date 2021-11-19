@@ -55,28 +55,28 @@ router.post('/sign-in', async function(req,res,next){
 
 
 router.post('/add-article', async function(req,res,next){
-
   var newFavArticle = new favArticleModel({
       image: req.body.urlToImage,
-      titre:req.body.title,
+      title:req.body.title,
       contenu:req.body.description,
+      
   }); 
-
   var newFavArticleSave = await newFavArticle.save();
-
   res.json({result:newFavArticleSave ? true : false, newFavArticleSave });
 });
 
 
-router.delete('/delete-article', async function(req,res,next){
-
-  await favArticleModel.deleteOne( { title: req.body.title } );
-
+router.delete('/delete-article/:title', async function(req,res,next){
+  await favArticleModel.deleteOne( { title: req.params.title } );
+  console.log("req.params", req.params);
   var wishListUpdate = await favArticleModel.find();
-
-  // var newFavArticleSave = await newFavArticle.save();
-
   res.json({result:wishListUpdate ? true : false, wishListUpdate });
+});
+
+
+router.get('/display-wishlist', async function(req,res,next){
+  var wishlist = await favArticleModel.find();
+  res.json({result:wishlist ? true : false, wishlist });
 });
 
 module.exports = router;

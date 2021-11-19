@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './App.css';
 import { Card, Icon, Modal} from 'antd';
@@ -7,10 +7,13 @@ import {connect} from 'react-redux';
 
 
 
+
 const { Meta } = Card;
 
 function ScreenMyArticles(props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -21,7 +24,7 @@ function ScreenMyArticles(props) {
 
   const deleteArticle = async (title) => {
     props.onDeleteClick(title);
-    var dataRaw = await fetch(`/delete-article`, {
+    var dataRaw = await fetch(`/delete-article/${title}`, {
         method: 'DELETE'	
     })
 
@@ -35,6 +38,17 @@ function ScreenMyArticles(props) {
   //   {name:"Gilets Jaune", description: 'Encore un samedi agité en IDF selon...',img:'./images/giletjaune.jpg',content:"Selon une information de La Provence, ce samedi, deux « gilets jaunes » ont été interptions par les manifestants. En novembre, une dizaine de personnes avait ainsi été interpellée par la police après le saccage du péage et un incendie volontaire."}
   // ]
   
+
+  useEffect(() => {
+    async function loadData() {
+      var responseRaw = await fetch('/display-wishlist')
+      var response = await responseRaw.json();
+      console.log("response", response);
+    }
+    loadData()
+    
+    
+  }, []);
 
   return (
     <div>

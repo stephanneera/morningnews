@@ -22,12 +22,12 @@ function ScreenArticlesBySource(props) {
     setIsModalVisible(false);
   };
 
-  const saveArtcile = async (title, description, urlToImage, content) => {
-    props.onLikeClick(title, description, urlToImage, content);
+  const saveArtcile = async (title, description, urlToImage, content, token) => {
+    props.onLikeClick(title, description, urlToImage, content, token);
     var dataRaw = await fetch(`/add-article`, {
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: `title=${title}&description=${description}&urltoimage=${urlToImage}&content=${content}`
+      body: `title=${title}&description=${description}&urlToImage=${urlToImage}&content=${content}&token=${token}`
     })
     
     var dataFavArticle =  await dataRaw.json()
@@ -42,7 +42,6 @@ function ScreenArticlesBySource(props) {
             var rawResponse = await fetch(`https://newsapi.org/v2/top-headlines?sources=${id}&apiKey=31bc979f62d243358a3bdaafa0e1272a`);
             var response = await rawResponse.json();
             setArticleList(response.articles)
-            
     }
     loadData()
   }, []);

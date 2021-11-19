@@ -1,6 +1,6 @@
 
 export default function(articles = [], action) {
-    console.log(action);
+    console.log(action, articles);
     if(action.type == 'addarticle') {
          
         var newarticles = [... articles]
