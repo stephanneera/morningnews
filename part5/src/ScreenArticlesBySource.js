@@ -22,6 +22,17 @@ function ScreenArticlesBySource(props) {
     setIsModalVisible(false);
   };
 
+  const saveArtcile = async (title, description, urlToImage, content) => {
+    props.onLikeClick(title, description, urlToImage, content);
+    var dataRaw = await fetch(`/wishlist`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: `title=${title}&description=${description}&urltoimage=${urlToImage}&content=${content}`
+    })
+    
+    var dataFavArticle =  await dataRaw.json()
+    console.log("dtatFav", dataFavArticle );
+  };
 
 
   let { id } = useParams();
@@ -58,7 +69,7 @@ function ScreenArticlesBySource(props) {
         
         
           <Icon type="read" key="ellipsis2" onClick={()=>showModal(list.title, list.description)} />,
-          <Icon type="like" key="ellipsis" onClick={ ()=>props.onLikeClick(list.title, list.description, list.urlToImage, list.content) }/>
+          <Icon type="like" key="ellipsis" onClick={ ()=>saveArtcile(list.title, list.description, list.urlToImage, list.content) }/>
       ]}
       >
 

@@ -54,6 +54,20 @@ router.post('/sign-in', async function(req,res,next){
 });
 
 
-router.get
+router.post('/wishlist', async function(req,res,next){
+
+  var newFavArticle = new favArticleModel({
+      image: req.body.urlToImage,
+      titre:req.body.title,
+      contenu:req.body.description,
+  }); 
+
+  var newFavArticleSave = await newFavArticle.save();
+
+  res.json({result:newFavArticleSave ? true : false, newFavArticleSave });
+});
+
+
+
 
 module.exports = router;
