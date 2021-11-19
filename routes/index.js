@@ -54,7 +54,7 @@ router.post('/sign-in', async function(req,res,next){
 });
 
 
-router.post('/wishlist', async function(req,res,next){
+router.post('/add-article', async function(req,res,next){
 
   var newFavArticle = new favArticleModel({
       image: req.body.urlToImage,
@@ -68,6 +68,15 @@ router.post('/wishlist', async function(req,res,next){
 });
 
 
+router.delete('/delete-article', async function(req,res,next){
 
+  await favArticleModel.deleteOne( { title: req.body.title } );
+
+  var wishListUpdate = await favArticleModel.find();
+
+  // var newFavArticleSave = await newFavArticle.save();
+
+  res.json({result:wishListUpdate ? true : false, wishListUpdate });
+});
 
 module.exports = router;

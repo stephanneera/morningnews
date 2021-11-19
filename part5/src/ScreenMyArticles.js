@@ -19,7 +19,15 @@ function ScreenMyArticles(props) {
     setIsModalVisible(false);
   };
 
+  const deleteArticle = async (title) => {
+    props.onDeleteClick(title);
+    var dataRaw = await fetch(`/delete-article`, {
+        method: 'DELETE'	
+    })
 
+    // var dataDeleteArticle =  await dataRaw.json()
+    // console.log("dtatFav", dataFavArticle );
+  };
 
   // const FakeArticles = [
   //   {title:'Bitcoin Power', description: 'Le bitcoin revient de très loin et peut toujours...',img:'./images/bitcoin.jpg', content:"L’agenda politique sur la monnaie numérique publique, ainsi que ma récente visite du Musée créé par la Banque de France m’ont conduit à de multiples réflexions. Qu’un ministre ne veuille pas de monnaie privée sur notre sol (curieux, d’ailleurs que ce soit précisément ce mot à double sens qui affleure ici) c’est une chose. Que la chose soit impensable en est une autre.On va parler ici d’une monnaie privée émise justement par… un ministre, et pas n’importe lequel. Au cœur de l’appareil d’Etat, et en plein centre de la France. "},
@@ -58,7 +66,7 @@ function ScreenMyArticles(props) {
                         
                         actions={[
                           <Icon type="read" key="ellipsis2" onClick={()=>showModal(article.title, article.description, article.content)} />,
-                            <Icon type="delete" key="ellipsis" onClick={()=>props.onDeleteClick(article.title)} />
+                            <Icon type="delete" key="ellipsis" onClick={()=>deleteArticle(article.title)} />
                         ]}
                         >
                           
