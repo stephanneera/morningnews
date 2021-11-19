@@ -4,7 +4,6 @@ import './App.css';
 import { Card, Icon} from 'antd';
 import Nav from './Nav';
 import { useParams } from "react-router-dom";
-import { ListGroup } from 'reactstrap';
 import { Modal } from 'antd';
 import {connect} from 'react-redux';
 
